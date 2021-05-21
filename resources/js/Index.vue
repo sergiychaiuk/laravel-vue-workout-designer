@@ -34,13 +34,19 @@
                     <v-list-item-group
                         color="primary"
                     >
-                        <v-list-item link>
+                        <v-list-item
+                            :to="{name: 'login'}"
+                            link
+                        >
                             <v-list-item-icon>
                                 <v-icon>mdi-login-variant</v-icon>
                             </v-list-item-icon>
                             <v-list-item-title>Авторизація</v-list-item-title>
                         </v-list-item>
-                        <v-list-item link>
+                        <v-list-item
+                            :to="{name: 'register'}"
+                            link
+                        >
                             <v-list-item-icon>
                                 <v-icon>mdi-account-plus</v-icon>
                             </v-list-item-icon>
@@ -71,7 +77,10 @@
                 <v-list-item-group
                     color="primary"
                 >
-                    <v-list-item link>
+                    <v-list-item
+                        :to="{name: 'home'}"
+                        link
+                    >
                         <v-list-item-icon>
                             <v-icon>mdi-apps</v-icon>
                         </v-list-item-icon>
@@ -93,7 +102,7 @@
             </v-list>
         </v-navigation-drawer>
         <v-main>
-
+            <router-view></router-view>
         </v-main>
     </v-app>
 </template>
@@ -111,5 +120,5 @@ export default {
 </script>
 
 <style scoped>
-
+    a {  text-decoration: none;}
 </style>

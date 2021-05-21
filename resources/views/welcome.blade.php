@@ -14,6 +14,8 @@
     <body>
         <div id="app">
             <index></index>
+
+            <vue-progress-bar></vue-progress-bar>
         </div>
         <script src="{{ mix('js/app.js') }}" defer></script>
     </body>

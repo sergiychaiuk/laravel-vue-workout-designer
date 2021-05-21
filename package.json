@@ -26,6 +26,8 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
+        "vue-progressbar": "^0.7.5",
+        "vue-router": "^3.5.1",
         "vuelidate": "^0.7.6",
         "vuetify": "^2.5.0"
     }
