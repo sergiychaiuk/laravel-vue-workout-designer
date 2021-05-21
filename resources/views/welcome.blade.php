@@ -13,9 +13,7 @@
     </head>
     <body>
         <div id="app">
-            <v-app app>
-
-            </v-app>
+            <index></index>
         </div>
         <script src="{{ mix('js/app.js') }}" defer></script>
     </body>
