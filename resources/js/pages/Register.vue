@@ -49,6 +49,18 @@
                         </v-card-actions>
                         <v-card-actions>
                             <v-text-field
+                                label="Прізвище"
+                                filled
+                                hide-details="auto"
+                                append-icon="mdi-account"
+                                v-model.trim="surname"
+                                :error-messages="surnameErrors"
+                                @input="$v.surname.$touch()"
+                                @blur="$v.surname.$touch()"
+                            ></v-text-field>
+                        </v-card-actions>
+                        <v-card-actions>
+                            <v-text-field
                                 label="Пароль"
                                 filled
                                 hide-details="auto"
@@ -117,6 +129,9 @@ export default {
         name: {
             required,
         },
+        surname: {
+            required,
+        },
         password: {
             required,
             minLength: minLength(8),
@@ -131,6 +146,7 @@ export default {
         return {
             email: '',
             name: '',
+            surname: '',
             password: '',
             verify: '',
             show: false,
@@ -149,6 +165,12 @@ export default {
             const errors = [];
             if (!this.$v.name.$dirty) return errors;
             !this.$v.name.required && errors.push('Потрібно вказати ім\'я');
+            return errors;
+        },
+        surnameErrors() {
+            const errors = [];
+            if (!this.$v.surname.$dirty) return errors;
+            !this.$v.surname.required && errors.push('Потрібно вказати прізвище');
             return errors;
         },
         passwordErrors() {

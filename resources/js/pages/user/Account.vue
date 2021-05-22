@@ -1,0 +1,462 @@
+<template>
+    <v-container>
+        <v-row>
+            <v-col>
+                <v-form>
+                    <v-container>
+                        <v-row
+                            align="center"
+                        >
+                            <v-col
+                                cols="6"
+                                sm="8"
+                                md="8"
+                                lg="8"
+                                xl="8"
+                            >
+                                <div class="text-h5 text-sm-h4 text-md-h3 text-lg-h3 text-xl-h3 font-weight-bold blue--text text--darken-2">
+                                    Serhii Chayck
+                                </div>
+                            </v-col>
+                            <v-col
+                                class="text-end"
+                                cols="6"
+                                sm="4"
+                                md="4"
+                                lg="4"
+                                xl="4"
+                            >
+                                <v-btn
+                                    color="primary"
+                                >
+                                    Зберегти
+                                    <v-icon>
+                                        mdi-content-save
+                                    </v-icon>
+                                </v-btn>
+                            </v-col>
+                        </v-row>
+                    </v-container>
+                    <v-card>
+                        <v-tabs v-model="tab">
+                            <v-tab>Інформація</v-tab>
+                            <v-tab>Фізичні дані</v-tab>
+                        </v-tabs>
+                        <v-tabs-items v-model="tab">
+                            <v-tab-item>
+                                <v-card flat>
+                                    <v-container>
+                                        <v-row>
+                                            <v-col
+                                                cols="12"
+                                                sm="12"
+                                                md="12"
+                                                lg="8"
+                                                xl="8"
+                                            >
+                                                <v-card
+                                                    outlined
+                                                >
+                                                    <v-container>
+                                                        <v-row>
+                                                            <v-col>
+                                                                <v-alert
+                                                                    border="left"
+                                                                    color="blue"
+                                                                    text
+                                                                    type="info"
+                                                                >Ці значення важливі для розрахунку норм калорій і БЖУ</v-alert>
+                                                            </v-col>
+                                                        </v-row>
+                                                        <v-row>
+                                                            <v-col
+                                                                cols="12"
+                                                                sm="12"
+                                                                md="4"
+                                                                lg="4"
+                                                                xl="4"
+                                                            >
+                                                                <v-select
+                                                                    :items="sex"
+                                                                    label="Стать"
+                                                                    outlined
+                                                                    append-outer-icon="mdi-human-male-female"
+                                                                    hide-details="auto"
+                                                                ></v-select>
+                                                            </v-col>
+                                                            <v-col
+                                                                cols="12"
+                                                                sm="12"
+                                                                md="4"
+                                                                lg="4"
+                                                                xl="4"
+                                                            >
+                                                                <v-select
+                                                                    :items="actives"
+                                                                    item-text="name"
+                                                                    item-value="value"
+                                                                    label="Активність"
+                                                                    outlined
+                                                                    append-outer-icon="mdi-handball"
+                                                                    hide-details="auto"
+                                                                ></v-select>
+                                                            </v-col>
+                                                            <v-col
+                                                                cols="12"
+                                                                sm="12"
+                                                                md="4"
+                                                                lg="4"
+                                                                xl="4"
+                                                            >
+                                                                <v-select
+                                                                    :items="goals"
+                                                                    item-text="name"
+                                                                    item-value="value"
+                                                                    label="Ціль"
+                                                                    outlined
+                                                                    append-outer-icon="mdi-flag-checkered"
+                                                                    hide-details="auto"
+                                                                ></v-select>
+                                                            </v-col>
+                                                        </v-row>
+                                                        <v-row>
+                                                            <v-col
+                                                                cols="12"
+                                                                sm="12"
+                                                                md="4"
+                                                                lg="4"
+                                                                xl="4"
+                                                            >
+                                                                <v-text-field
+                                                                    label="Вік"
+                                                                    outlined
+                                                                    type="number"
+                                                                    min="0"
+                                                                    append-icon="mdi-baby-carriage"
+                                                                    hide-details="auto"
+                                                                ></v-text-field>
+                                                            </v-col>
+                                                            <v-col
+                                                                cols="12"
+                                                                sm="12"
+                                                                md="4"
+                                                                lg="4"
+                                                                xl="4"
+                                                            >
+                                                                <v-text-field
+                                                                    label="Вага"
+                                                                    outlined
+                                                                    type="number"
+                                                                    min="10"
+                                                                    step="0.1"
+                                                                    append-icon="mdi-weight-kilogram"
+                                                                    hide-details="auto"
+                                                                ></v-text-field>
+                                                            </v-col>
+                                                            <v-col
+                                                                cols="12"
+                                                                sm="12"
+                                                                md="4"
+                                                                lg="4"
+                                                                xl="4"
+                                                            >
+                                                                <v-text-field
+                                                                    label="Зріст"
+                                                                    outlined
+                                                                    type="number"
+                                                                    min="10"
+                                                                    step="0.1"
+                                                                    append-icon="mdi-human-handsup"
+                                                                    hide-details="auto"
+                                                                ></v-text-field>
+                                                            </v-col>
+                                                        </v-row>
+                                                    </v-container>
+                                                    <v-divider></v-divider>
+                                                    <v-container>
+                                                        <v-row>
+                                                            <v-col
+                                                                cols="6"
+                                                            >
+                                                                <v-text-field
+                                                                    label="Ім'я"
+                                                                    outlined
+                                                                    hide-details="auto"
+                                                                ></v-text-field>
+                                                            </v-col>
+                                                            <v-col
+                                                                cols="6"
+                                                            >
+                                                                <v-text-field
+                                                                    label="Прізвище"
+                                                                    outlined
+                                                                    hide-details="auto"
+                                                                ></v-text-field>
+                                                            </v-col>
+                                                        </v-row>
+                                                    </v-container>
+                                                </v-card>
+                                            </v-col>
+                                            <v-col
+                                                cols="12"
+                                                sm="12"
+                                                md="12"
+                                                lg="4"
+                                                xl="4"
+                                            >
+                                                <v-card
+                                                    outlined
+                                                >
+                                                     <v-container>
+                                                         <v-row>
+                                                             <v-col
+                                                                cols="8"
+                                                             >Норма калорій в день</v-col>
+                                                             <v-col
+                                                                 cols="4"
+                                                                 class="font-weight-bold">0</v-col>
+                                                         </v-row>
+                                                     </v-container>
+                                                    <v-divider></v-divider>
+                                                    <v-container>
+                                                        <v-row>
+                                                            <v-col
+                                                                cols="8"
+                                                            >Норма білків в день</v-col>
+                                                            <v-col
+                                                                cols="4"
+                                                                class="font-weight-bold">0 g</v-col>
+                                                        </v-row>
+                                                    </v-container>
+                                                    <v-divider></v-divider>
+                                                    <v-container>
+                                                        <v-row>
+                                                            <v-col
+                                                                cols="8"
+                                                            >Норма вуглеводів в день</v-col>
+                                                            <v-col
+                                                                cols="4"
+                                                                class="font-weight-bold">0 g</v-col>
+                                                        </v-row>
+                                                    </v-container>
+                                                    <v-divider></v-divider>
+                                                    <v-container>
+                                                        <v-row>
+                                                            <v-col
+                                                                cols="8"
+                                                            >Норма жирів в день</v-col>
+                                                            <v-col
+                                                                cols="4"
+                                                                class="font-weight-bold">0 g</v-col>
+                                                        </v-row>
+                                                    </v-container>
+                                                </v-card>
+                                            </v-col>
+                                        </v-row>
+                                    </v-container>
+                                </v-card>
+                            </v-tab-item>
+                            <v-tab-item>
+                                <v-card flat>
+                                    <v-container>
+                                        <v-row>
+                                            <v-col
+                                                cols="12"
+                                                sm="12"
+                                                md="12"
+                                                lg="8"
+                                                xl="8"
+                                            >
+                                                <v-card
+                                                    outlined
+                                                >
+                                                    <v-container>
+                                                        <v-row>
+                                                            <v-col
+                                                                cols="12"
+                                                                sm="12"
+                                                                md="6"
+                                                                lg="6"
+                                                                xl="6"
+                                                            >
+                                                                <v-text-field
+                                                                    label="Обхват шиї"
+                                                                    outlined
+                                                                    type="number"
+                                                                    min="10"
+                                                                    step="0.1"
+                                                                    append-icon="mdi-axis-z-rotate-counterclockwise"
+                                                                    hide-details="auto"
+                                                                ></v-text-field>
+                                                            </v-col>
+                                                            <v-col
+                                                                cols="12"
+                                                                sm="12"
+                                                                md="6"
+                                                                lg="6"
+                                                                xl="6"
+                                                            >
+                                                                <v-text-field
+                                                                    label="Обхват біцепса"
+                                                                    outlined
+                                                                    type="number"
+                                                                    min="10"
+                                                                    step="0.1"
+                                                                    append-icon="mdi-axis-z-rotate-counterclockwise"
+                                                                    hide-details="auto"
+                                                                ></v-text-field>
+                                                            </v-col>
+                                                        </v-row>
+                                                        <v-row>
+                                                            <v-col
+                                                                cols="12"
+                                                                sm="12"
+                                                                md="6"
+                                                                lg="6"
+                                                                xl="6"
+                                                            >
+                                                                <v-text-field
+                                                                    label="Обхват грудей"
+                                                                    outlined
+                                                                    type="number"
+                                                                    min="10"
+                                                                    step="0.1"
+                                                                    append-icon="mdi-axis-z-rotate-counterclockwise"
+                                                                    hide-details="auto"
+                                                                ></v-text-field>
+                                                            </v-col>
+                                                            <v-col
+                                                                cols="12"
+                                                                sm="12"
+                                                                md="6"
+                                                                lg="6"
+                                                                xl="6"
+                                                            >
+                                                                <v-text-field
+                                                                    label="Обхват талії"
+                                                                    outlined
+                                                                    type="number"
+                                                                    min="10"
+                                                                    step="0.1"
+                                                                    append-icon="mdi-axis-z-rotate-counterclockwise"
+                                                                    hide-details="auto"
+                                                                ></v-text-field>
+                                                            </v-col>
+                                                        </v-row>
+                                                        <v-row>
+                                                            <v-col
+                                                                cols="12"
+                                                                sm="12"
+                                                                md="6"
+                                                                lg="6"
+                                                                xl="6"
+                                                            >
+                                                                <v-text-field
+                                                                    label="Обхват таза"
+                                                                    outlined
+                                                                    type="number"
+                                                                    min="10"
+                                                                    step="0.1"
+                                                                    append-icon="mdi-axis-z-rotate-counterclockwise"
+                                                                    hide-details="auto"
+                                                                ></v-text-field>
+                                                            </v-col>
+                                                            <v-col
+                                                                cols="12"
+                                                                sm="12"
+                                                                md="6"
+                                                                lg="6"
+                                                                xl="6"
+                                                            >
+                                                                <v-text-field
+                                                                    label="Обхват гомілки"
+                                                                    outlined
+                                                                    type="number"
+                                                                    min="10"
+                                                                    step="0.1"
+                                                                    append-icon="mdi-axis-z-rotate-counterclockwise"
+                                                                    hide-details="auto"
+                                                                ></v-text-field>
+                                                            </v-col>
+                                                        </v-row>
+                                                        <v-row>
+                                                            <v-col
+                                                                cols="12"
+                                                                sm="12"
+                                                                md="6"
+                                                                lg="6"
+                                                                xl="6"
+                                                            >
+                                                                <v-text-field
+                                                                    label="Обхват стегна"
+                                                                    outlined
+                                                                    type="number"
+                                                                    min="10"
+                                                                    step="0.1"
+                                                                    append-icon="mdi-axis-z-rotate-counterclockwise"
+                                                                    hide-details="auto"
+                                                                ></v-text-field>
+                                                            </v-col>
+                                                            <v-col
+                                                                cols="12"
+                                                                sm="12"
+                                                                md="6"
+                                                                lg="6"
+                                                                xl="6"
+                                                            >
+                                                                <v-text-field
+                                                                    label="Обхват передпліччя"
+                                                                    outlined
+                                                                    type="number"
+                                                                    min="10"
+                                                                    step="0.1"
+                                                                    append-icon="mdi-axis-z-rotate-counterclockwise"
+                                                                    hide-details="auto"
+                                                                ></v-text-field>
+                                                            </v-col>
+                                                        </v-row>
+                                                    </v-container>
+                                                </v-card>
+                                            </v-col>
+                                        </v-row>
+                                    </v-container>
+                                </v-card>
+                            </v-tab-item>
+                        </v-tabs-items>
+                    </v-card>
+                </v-form>
+            </v-col>
+        </v-row>
+    </v-container>
+</template>
+
+<script>
+export default {
+    name: "Account",
+    data() {
+        return {
+            tab: null,
+
+            sex: ['Чоловік', 'Жінка'],
+            actives: [
+                { name: 'Майже немає активності', value: 1.2 },
+                { name: 'Помірні навантаження', value: 1.375 },
+                { name: 'Тренування 3-5 разів на тиждень', value: 1.55 },
+                { name: 'Інтенсивні навантаження', value: 1.725 },
+                { name: 'Професіональний спортсмен', value: 1.9 },
+            ],
+            goals: [
+                { name: 'Скинути вагу', value: 0 },
+                { name: 'Набрати м\'язову масу', value: 1 },
+                { name: 'Підтримувати вагу', value: 2 },
+            ],
+        };
+    }
+}
+</script>
+
+<style scoped>
+    .v-divider, .v-alert {
+        margin: 0 !important;
+    }
+</style>
