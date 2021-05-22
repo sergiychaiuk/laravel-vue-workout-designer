@@ -52,8 +52,9 @@
                         <v-card-actions>
                             <v-btn
                                 text
+                                @click="clear"
                             >
-                                Головна
+                                Очистити
                             </v-btn>
                             <v-spacer></v-spacer>
                             <v-btn
@@ -116,7 +117,12 @@ export default {
 
     methods: {
         submit() {
-            this.$v.$touch()
+            this.$v.$touch();
+        },
+        clear() {
+            this.$v.$reset();
+            this.email = '';
+            this.password = '';
         },
     },
 }

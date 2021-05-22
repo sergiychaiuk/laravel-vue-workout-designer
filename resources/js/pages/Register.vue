@@ -37,6 +37,18 @@
                         </v-card-actions>
                         <v-card-actions>
                             <v-text-field
+                                label="Ім'я"
+                                filled
+                                hide-details="auto"
+                                append-icon="mdi-account"
+                                v-model.trim="name"
+                                :error-messages="nameErrors"
+                                @input="$v.name.$touch()"
+                                @blur="$v.name.$touch()"
+                            ></v-text-field>
+                        </v-card-actions>
+                        <v-card-actions>
+                            <v-text-field
                                 label="Пароль"
                                 filled
                                 hide-details="auto"
@@ -68,8 +80,9 @@
                         <v-card-actions>
                             <v-btn
                                 text
+                                @click="clear"
                             >
-                                Головна
+                                Очистити
                             </v-btn>
                             <v-spacer></v-spacer>
                             <v-btn
@@ -101,6 +114,9 @@ export default {
             required,
             email,
         },
+        name: {
+            required,
+        },
         password: {
             required,
             minLength: minLength(8),
@@ -114,6 +130,7 @@ export default {
     data () {
         return {
             email: '',
+            name: '',
             password: '',
             verify: '',
             show: false,
@@ -126,6 +143,12 @@ export default {
             if (!this.$v.email.$dirty) return errors;
             !this.$v.email.email && errors.push('Має бути дійсний електронний лист');
             !this.$v.email.required && errors.push('Потрібна електронна пошта');
+            return errors;
+        },
+        nameErrors() {
+            const errors = [];
+            if (!this.$v.name.$dirty) return errors;
+            !this.$v.name.required && errors.push('Потрібно вказати ім\'я');
             return errors;
         },
         passwordErrors() {
@@ -147,6 +170,13 @@ export default {
     methods: {
         submit() {
             this.$v.$touch()
+        },
+        clear() {
+            this.$v.$reset();
+            this.email = '';
+            this.name = '';
+            this.password = '';
+            this.verify = '';
         },
     },
 }

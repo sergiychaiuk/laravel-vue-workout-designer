@@ -2095,6 +2095,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2134,6 +2135,11 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     submit: function submit() {
       this.$v.$touch();
+    },
+    clear: function clear() {
+      this.$v.$reset();
+      this.email = '';
+      this.password = '';
     }
   }
 });
@@ -2242,6 +2248,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2251,6 +2270,9 @@ __webpack_require__.r(__webpack_exports__);
     email: {
       required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required,
       email: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.email
+    },
+    name: {
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required
     },
     password: {
       required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required,
@@ -2264,6 +2286,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       email: '',
+      name: '',
       password: '',
       verify: '',
       show: false
@@ -2275,6 +2298,12 @@ __webpack_require__.r(__webpack_exports__);
       if (!this.$v.email.$dirty) return errors;
       !this.$v.email.email && errors.push('Має бути дійсний електронний лист');
       !this.$v.email.required && errors.push('Потрібна електронна пошта');
+      return errors;
+    },
+    nameErrors: function nameErrors() {
+      var errors = [];
+      if (!this.$v.name.$dirty) return errors;
+      !this.$v.name.required && errors.push('Потрібно вказати ім\'я');
       return errors;
     },
     passwordErrors: function passwordErrors() {
@@ -2295,6 +2324,13 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     submit: function submit() {
       this.$v.$touch();
+    },
+    clear: function clear() {
+      this.$v.$reset();
+      this.email = '';
+      this.name = '';
+      this.password = '';
+      this.verify = '';
     }
   }
 });
@@ -38691,11 +38727,15 @@ var render = function() {
                       _c(
                         "v-card-actions",
                         [
-                          _c("v-btn", { attrs: { text: "" } }, [
-                            _vm._v(
-                              "\n                            Головна\n                        "
-                            )
-                          ]),
+                          _c(
+                            "v-btn",
+                            { attrs: { text: "" }, on: { click: _vm.clear } },
+                            [
+                              _vm._v(
+                                "\n                            Очистити\n                        "
+                              )
+                            ]
+                          ),
                           _vm._v(" "),
                           _c("v-spacer"),
                           _vm._v(" "),
@@ -38821,6 +38861,38 @@ var render = function() {
                         [
                           _c("v-text-field", {
                             attrs: {
+                              label: "Ім'я",
+                              filled: "",
+                              "hide-details": "auto",
+                              "append-icon": "mdi-account",
+                              "error-messages": _vm.nameErrors
+                            },
+                            on: {
+                              input: function($event) {
+                                return _vm.$v.name.$touch()
+                              },
+                              blur: function($event) {
+                                return _vm.$v.name.$touch()
+                              }
+                            },
+                            model: {
+                              value: _vm.name,
+                              callback: function($$v) {
+                                _vm.name =
+                                  typeof $$v === "string" ? $$v.trim() : $$v
+                              },
+                              expression: "name"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-card-actions",
+                        [
+                          _c("v-text-field", {
+                            attrs: {
                               label: "Пароль",
                               filled: "",
                               "hide-details": "auto",
@@ -38897,11 +38969,15 @@ var render = function() {
                       _c(
                         "v-card-actions",
                         [
-                          _c("v-btn", { attrs: { text: "" } }, [
-                            _vm._v(
-                              "\n                            Головна\n                        "
-                            )
-                          ]),
+                          _c(
+                            "v-btn",
+                            { attrs: { text: "" }, on: { click: _vm.clear } },
+                            [
+                              _vm._v(
+                                "\n                            Очистити\n                        "
+                              )
+                            ]
+                          ),
                           _vm._v(" "),
                           _c("v-spacer"),
                           _vm._v(" "),
