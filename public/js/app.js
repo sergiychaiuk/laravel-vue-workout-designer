@@ -43209,7 +43209,7 @@ var render = function() {
                                                                       "number",
                                                                     min: "0",
                                                                     "append-icon":
-                                                                      "mdi-baby-carriage",
+                                                                      "mdi-human-male-boy",
                                                                     "hide-details":
                                                                       "auto",
                                                                     "error-messages":
@@ -43339,7 +43339,7 @@ var render = function() {
                                                                     min: "0",
                                                                     step: "0.1",
                                                                     "append-icon":
-                                                                      "mdi-human-handsup",
+                                                                      "mdi-human-male-height",
                                                                     "hide-details":
                                                                       "auto",
                                                                     "error-messages":
