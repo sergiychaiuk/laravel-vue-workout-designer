@@ -22,7 +22,7 @@
                         v-on="on"
                         text
                     >
-                        Користувач
+                        {{ userName }}
                         <v-icon style="font-size: 16px; height: 16px; width: 16px;">mdi-chevron-down</v-icon>
                     </v-btn>
                 </template>
@@ -34,7 +34,7 @@
                     <v-list-item-group
                         color="primary"
                     >
-                        <v-list-item
+                        <v-list-item v-if="!$auth.check()"
                             :to="{name: 'login'}"
                             link
                         >
@@ -43,7 +43,7 @@
                             </v-list-item-icon>
                             <v-list-item-title>Авторизація</v-list-item-title>
                         </v-list-item>
-                        <v-list-item
+                        <v-list-item v-if="!$auth.check()"
                             :to="{name: 'register'}"
                             link
                         >
@@ -51,6 +51,24 @@
                                 <v-icon>mdi-account-plus</v-icon>
                             </v-list-item-icon>
                             <v-list-item-title>Реєстрація</v-list-item-title>
+                        </v-list-item>
+                        <v-list-item v-if="$auth.check()"
+                                     :to="{name: 'account'}"
+                                     link
+                        >
+                            <v-list-item-icon>
+                                <v-icon>mdi-account-circle</v-icon>
+                            </v-list-item-icon>
+                            <v-list-item-title>Акаунт</v-list-item-title>
+                        </v-list-item>
+                        <v-list-item v-if="$auth.check()"
+                                     link
+                                     @click.prevent="$auth.logout();"
+                        >
+                            <v-list-item-icon>
+                                <v-icon>mdi-exit-to-app</v-icon>
+                            </v-list-item-icon>
+                            <v-list-item-title>Вихід</v-list-item-title>
                         </v-list-item>
                     </v-list-item-group>
                 </v-list>
@@ -115,6 +133,15 @@ export default {
         return {
             drawer: null,
         };
+    },
+    computed: {
+        userName: function () {
+            if (this.$auth.check()) {
+                return this.$auth.user().name + ' ' + this.$auth.user().surname;
+            } else {
+                return 'Користувач';
+            }
+        },
     },
 }
 </script>

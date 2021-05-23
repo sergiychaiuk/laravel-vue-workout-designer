@@ -9,8 +9,8 @@
                 lg="6"
             >
                 <v-card
-                    :loading="false"
-                    :disabled="false"
+                    :loading="loading"
+                    :disabled="loading"
                     elevation="5"
                 >
                     <v-card-title
@@ -22,7 +22,16 @@
                     <v-card-subtitle>
                         Авторизація
                     </v-card-subtitle>
-                    <v-form>
+                    <v-card-text>
+                        <v-alert
+                            border="left"
+                            color="red"
+                            text
+                            type="error"
+                            v-if="error"
+                        >Неправильні логін або пароль</v-alert>
+                    </v-card-text>
+                    <v-form @submit.prevent="submit" method="post">
                         <v-card-actions>
                             <v-text-field
                                 label="E-mail"
@@ -60,7 +69,8 @@
                             <v-btn
                                 color="primary"
                                 text
-                                @click="submit"
+                                type="submit"
+                                :loading="loading"
                             >
                                 Увійти
                             </v-btn>
@@ -96,6 +106,8 @@ export default {
             email: '',
             password: '',
             show: false,
+            error: '',
+            loading: false,
         };
     },
 
@@ -118,6 +130,29 @@ export default {
     methods: {
         submit() {
             this.$v.$touch();
+            if (!this.$v.$invalid) {
+                let app = this;
+                app.loading = true;
+                this.$Progress.start();
+                this.$auth.login({
+                    data: {
+                        email: app.email,
+                        password: app.password,
+                    },
+                    success: function () {
+                        this.$Progress.finish();
+                        app.loading = false;
+                        this.$router.push({name: 'account'});
+                    },
+                    error: function (res) {
+                        this.$Progress.fail();
+                        app.loading = false;
+                        app.error = res.response.data.error;
+                    },
+                    rememberMe: true,
+                    fetchUser: true
+                });
+            }
         },
         clear() {
             this.$v.$reset();
@@ -129,5 +164,7 @@ export default {
 </script>
 
 <style scoped>
-
+    .v-alert {
+        margin: 0 !important;
+    }
 </style>

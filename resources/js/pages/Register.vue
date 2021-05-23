@@ -9,8 +9,8 @@
                 lg="6"
             >
                 <v-card
-                    :loading="false"
-                    :disabled="false"
+                    :loading="loading"
+                    :disabled="loading"
                     elevation="5"
                 >
                     <v-card-title
@@ -22,7 +22,17 @@
                     <v-card-subtitle>
                         Реєстрація
                     </v-card-subtitle>
-                    <v-form>
+                    <v-card-text>
+                        <v-alert
+                            border="left"
+                            color="red"
+                            text
+                            type="error"
+                            v-if="errors.email"
+                        >Акаунт з таким E-mail вже існує</v-alert>
+                    </v-card-text>
+
+                    <v-form @submit.prevent="submit" method="post">
                         <v-card-actions>
                             <v-text-field
                                 label="E-mail"
@@ -37,7 +47,7 @@
                         </v-card-actions>
                         <v-card-actions>
                             <v-text-field
-                                label="Ім'я"
+                                label="Ім`я"
                                 filled
                                 hide-details="auto"
                                 append-icon="mdi-account"
@@ -68,7 +78,6 @@
                                 :type="show ? 'text' : 'password'"
                                 @click:append="show = !show"
                                 v-model.trim="password"
-                                hint="Принаймні 8 символів"
                                 :error-messages="passwordErrors"
                                 @input="$v.password.$touch()"
                                 @blur="$v.password.$touch()"
@@ -82,11 +91,10 @@
                                 :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
                                 :type="show ? 'text' : 'password'"
                                 @click:append="show = !show"
-                                v-model.trim="verify"
-                                hint="Пароль повинен збігатися"
-                                :error-messages="verifyErrors"
-                                @input="$v.verify.$touch()"
-                                @blur="$v.verify.$touch()"
+                                v-model.trim="password_confirmation"
+                                :error-messages="passwordConfirmationErrors"
+                                @input="$v.password_confirmation.$touch()"
+                                @blur="$v.password_confirmation.$touch()"
                             ></v-text-field>
                         </v-card-actions>
                         <v-card-actions>
@@ -100,7 +108,8 @@
                             <v-btn
                                 color="primary"
                                 text
-                                @click="submit"
+                                type="submit"
+                                :loading="loading"
                             >
                                 Зареєструватись
                             </v-btn>
@@ -136,7 +145,7 @@ export default {
             required,
             minLength: minLength(8),
         },
-        verify: {
+        password_confirmation: {
             required,
             sameAsPassword: sameAs('password'),
         },
@@ -148,8 +157,11 @@ export default {
             name: '',
             surname: '',
             password: '',
-            verify: '',
+            password_confirmation: '',
             show: false,
+            error: '',
+            errors: {},
+            loading: false,
         };
     },
 
@@ -164,7 +176,7 @@ export default {
         nameErrors() {
             const errors = [];
             if (!this.$v.name.$dirty) return errors;
-            !this.$v.name.required && errors.push('Потрібно вказати ім\'я');
+            !this.$v.name.required && errors.push('Потрібно вказати ім\`я');
             return errors;
         },
         surnameErrors() {
@@ -180,18 +192,42 @@ export default {
             !this.$v.password.required && errors.push('Потрібен пароль');
             return errors;
         },
-        verifyErrors() {
+        passwordConfirmationErrors() {
             const errors = [];
-            if (!this.$v.verify.$dirty) return errors;
-            !this.$v.verify.sameAsPassword && errors.push('Паролі повинні бути однаковими');
-            !this.$v.verify.required && errors.push('Потрібно підтвердити пароль');
+            if (!this.$v.password_confirmation.$dirty) return errors;
+            !this.$v.password_confirmation.sameAsPassword && errors.push('Паролі повинні бути однаковими');
+            !this.$v.password_confirmation.required && errors.push('Потрібно підтвердити пароль');
             return errors;
         },
     },
 
     methods: {
         submit() {
-            this.$v.$touch()
+            this.$v.$touch();
+            if (!this.$v.$invalid) {
+                let app = this;
+                app.loading = true;
+                this.$Progress.start();
+                this.$auth.register({
+                    data: {
+                        name: app.name,
+                        surname: app.surname,
+                        email: app.email,
+                        password: app.password,
+                        password_confirmation: app.password_confirmation,
+                    },
+                    success: function () {
+                        this.$Progress.finish();
+                        app.loading = false;
+                        this.$router.push({name: 'login', params: {successRegistrationRedirect: true}});
+                    },
+                    error: function (res) {
+                        this.$Progress.fail();
+                        app.loading = false;
+                        app.errors = res.response.data.errors || {};
+                    }
+                });
+            }
         },
         clear() {
             this.$v.$reset();
@@ -205,5 +241,7 @@ export default {
 </script>
 
 <style scoped>
-
+    .v-alert {
+        margin: 0 !important;
+    }
 </style>
