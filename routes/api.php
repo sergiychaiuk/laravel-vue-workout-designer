@@ -37,3 +37,6 @@ Route::prefix('auth')->group(function () {
 Route::group(['middleware' => 'auth:api'], function() {
     Route::post('account/update', 'UserController@update');
 });
+
+Route::get('muscle_group', 'MuscleGroupController@index');
+Route::get('sports_projectile', 'SportsProjectileController@index');
