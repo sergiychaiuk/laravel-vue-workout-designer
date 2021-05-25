@@ -12,4 +12,9 @@ class SportsProjectile extends Model
     public $timestamps = false;
 
     protected $guarded = [];
+
+    public function exercises(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany('App\Models\Exercise', 'id', 'sports_projectile_id');
+    }
 }

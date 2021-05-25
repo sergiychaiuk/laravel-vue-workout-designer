@@ -12,4 +12,14 @@ class MuscleGroup extends Model
     public $timestamps = false;
 
     protected $guarded = [];
+
+    public function exercises(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany('App\Models\Exercise', 'id', 'muscle_group_id');
+    }
+
+    public function muscles(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany('App\Models\Muscle', 'id', 'muscle_group_id');
+    }
 }

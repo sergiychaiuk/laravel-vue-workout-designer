@@ -38,5 +38,8 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('account/update', 'UserController@update');
 });
 
-Route::get('muscle_group', 'MuscleGroupController@index');
-Route::get('sports_projectile', 'SportsProjectileController@index');
+Route::get('muscle_groups', 'MuscleGroupController@index');
+Route::get('sports_projectiles', 'SportsProjectileController@index');
+Route::get('exercises', 'ExerciseController@index');
+Route::get('muscles', 'MuscleController@index');
+
