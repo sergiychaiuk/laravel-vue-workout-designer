@@ -28,6 +28,9 @@
 <script>
 export default {
     name: "home",
+    created() {
+        this.$Progress.finish();
+    },
 }
 </script>
 

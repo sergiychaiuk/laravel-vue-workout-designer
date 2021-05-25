@@ -111,6 +111,10 @@ export default {
         };
     },
 
+    created() {
+        this.$Progress.finish();
+    },
+
     computed: {
         emailErrors() {
             const errors = [];

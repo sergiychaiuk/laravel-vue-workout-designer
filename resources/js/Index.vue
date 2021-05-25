@@ -132,7 +132,20 @@ export default {
     data() {
         return {
             drawer: null,
+            muscleGroups: [],
+            sportsProjectiles: [],
+            exercises: [],
+            muscles: [],
         };
+    },
+    beforeCreate() {
+        this.$Progress.start();
+    },
+    created() {
+        this.setMuscleGroups();
+        this.setSportsProjectiles();
+        this.setExercises();
+        this.setMuscles();
     },
     computed: {
         userName: function () {
@@ -141,6 +154,36 @@ export default {
             } else {
                 return 'Користувач';
             }
+        },
+    },
+    methods: {
+        setMuscleGroups: function () {
+            axios.get('muscle_groups')
+            .then(res => {
+                this.muscleGroups = res.data;
+                this.$store.commit('SET_MUSCLE_GROUPS', _.cloneDeep(this.muscleGroups));
+            });
+        },
+        setSportsProjectiles: function () {
+            axios.get('sports_projectiles')
+                .then(res => {
+                    this.sportsProjectiles = res.data;
+                    this.$store.commit('SET_SPORTS_PROJECTILES', _.cloneDeep(this.sportsProjectiles));
+                });
+        },
+        setExercises: function () {
+            axios.get('exercises')
+                .then(res => {
+                    this.exercises = res.data;
+                    this.$store.commit('SET_EXERCISES', _.cloneDeep(this.exercises));
+                });
+        },
+        setMuscles: function () {
+            axios.get('muscles')
+                .then(res => {
+                    this.muscles = res.data;
+                    this.$store.commit('SET_MUSCLES', _.cloneDeep(this.muscles));
+                });
         },
     },
 }

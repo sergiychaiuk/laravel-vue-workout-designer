@@ -674,6 +674,7 @@ export default {
     },
     created() {
         this.CPFC();
+        this.$Progress.finish();
     },
     methods: {
         CPFC() {
