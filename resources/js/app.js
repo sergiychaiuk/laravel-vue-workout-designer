@@ -9,6 +9,7 @@ import VueRouter from 'vue-router';
 import auth from './auth';
 import vuetify from './vuetify';
 import router from './router';
+import store from './store';
 
 window.Vue = require('vue').default;
 
@@ -35,4 +36,5 @@ const app = new Vue({
     el: '#app',
     router,
     vuetify,
+    store,
 });
