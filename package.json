@@ -29,6 +29,7 @@
         "@websanova/vue-auth": "^2.21.14-beta",
         "es6-promise": "^4.2.8",
         "vue-axios": "^3.2.4",
+        "vue-nl2br": "^0.1.2",
         "vue-progressbar": "^0.7.5",
         "vue-router": "^3.5.1",
         "vuelidate": "^0.7.6",

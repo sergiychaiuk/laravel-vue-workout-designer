@@ -110,11 +110,23 @@
                         </v-list-item-icon>
                         <v-list-item-title>Тренування</v-list-item-title>
                     </v-list-item>
-                    <v-list-item link>
+                    <v-list-item
+                        :to="{name: 'exercises'}"
+                        link
+                    >
                         <v-list-item-icon>
                             <v-icon>mdi-kettlebell</v-icon>
                         </v-list-item-icon>
                         <v-list-item-title>Вправи</v-list-item-title>
+                    </v-list-item>
+                    <v-list-item
+                        :to="{name: 'muscles'}"
+                        link
+                    >
+                        <v-list-item-icon>
+                            <v-icon>mdi-kettlebell</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-title>М`язи</v-list-item-title>
                     </v-list-item>
                 </v-list-item-group>
             </v-list>

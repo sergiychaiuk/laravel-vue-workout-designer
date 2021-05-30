@@ -32,6 +32,10 @@ Vue.use(VueAuth, auth);
 
 Vue.component('index', require('./Index').default);
 
+import Nl2br from 'vue-nl2br';
+
+Vue.component('nl2br', Nl2br);
+
 const app = new Vue({
     el: '#app',
     router,

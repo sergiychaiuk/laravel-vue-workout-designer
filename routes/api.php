@@ -39,7 +39,11 @@ Route::group(['middleware' => 'auth:api'], function() {
 });
 
 Route::get('muscle_groups', 'MuscleGroupController@index');
-Route::get('sports_projectiles', 'SportsProjectileController@index');
-Route::get('exercises', 'ExerciseController@index');
-Route::get('muscles', 'MuscleController@index');
 
+Route::get('sports_projectiles', 'SportsProjectileController@index');
+
+Route::get('exercises', 'ExerciseController@index');
+Route::get('/exercises/{exercise}', 'ExerciseController@show');
+
+Route::get('muscles', 'MuscleController@index');
+Route::get('/muscles/{muscle}', 'MuscleController@show');
