@@ -8,6 +8,8 @@ import MusclesList from "./pages/MusclesList";
 import ExercisesList from "./pages/ExercisesList";
 import Exercise from "./pages/Exercise";
 import Muscle from "./pages/Muscle";
+import Workouts from "./pages/Workouts";
+import Workout from "./pages/Workout";
 
 const routes = [
     {
@@ -39,7 +41,7 @@ const routes = [
         name: 'account',
         component: Account,
         meta: {
-            auth: true
+            auth: {roles: 1, redirect: {name: 'home'}}
         },
     },
     {
@@ -70,6 +72,22 @@ const routes = [
         path: '/muscles/:id',
         name: 'muscle',
         component: Muscle,
+        meta: {
+            auth: undefined
+        },
+    },
+    {
+        path: '/workouts',
+        name: 'workouts',
+        component: Workouts,
+        meta: {
+            auth: undefined
+        },
+    },
+    {
+        path: '/workouts/:id',
+        name: 'workout',
+        component: Workout,
         meta: {
             auth: undefined
         },

@@ -15,6 +15,6 @@ class SportsProjectile extends Model
 
     public function exercises(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany('App\Models\Exercise', 'id', 'sports_projectile_id');
+        return $this->hasMany('App\Models\Exercise');
     }
 }

@@ -15,11 +15,11 @@ class MuscleGroup extends Model
 
     public function exercises(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany('App\Models\Exercise', 'id', 'muscle_group_id');
+        return $this->hasMany('App\Models\Exercise');
     }
 
     public function muscles(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany('App\Models\Muscle', 'id', 'muscle_group_id');
+        return $this->hasMany('App\Models\Muscle');
     }
 }

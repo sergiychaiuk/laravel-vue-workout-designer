@@ -44,8 +44,10 @@
                                         </v-btn>
                                     </template>
                                     <v-card>
-                                        <v-card-title>Фільтр</v-card-title>
-                                        <v-card-text>
+                                        <v-card-title class="text-h5">
+                                            Фільтр
+                                        </v-card-title>
+                                        <v-card-text class="pb-0">
                                             <v-row
                                                 align="center"
                                             >
@@ -177,6 +179,14 @@
                                                 </v-col>
                                             </v-row>
                                         </v-card-text>
+                                        <v-card-actions>
+                                            <v-spacer></v-spacer>
+                                            <v-btn
+                                                color="primary"
+                                                text
+                                                @click="dialog = false"
+                                            >Закрити</v-btn>
+                                        </v-card-actions>
                                     </v-card>
                                 </v-dialog>
                             </v-col>
@@ -199,6 +209,7 @@
                             :sort-desc="sortDesc"
                             :items-per-page.sync="itemsPerPage"
                             :page.sync="page"
+                            :loading="loading"
                         >
                             <template v-slot:default="props">
                                 <v-row>
@@ -220,7 +231,7 @@
                                                     <v-img
                                                         contain
                                                         height="200"
-                                                        :src="`/images/${item.image}`"
+                                                        :src="`/storage/exercises/${item.image}`"
                                                     ></v-img>
                                                 </v-container>
                                                 <v-card-title class="blue--text text--darken-2">{{ item.muscle_group.name }}</v-card-title>
@@ -230,10 +241,36 @@
                                     </v-col>
                                 </v-row>
                             </template>
+                            <template v-slot:loading>
+                                <v-container>
+                                    <v-row
+                                        justify="center"
+                                        align="center"
+                                    >
+                                        <div class="justify-center">
+                                            <v-progress-circular
+                                                indeterminate
+                                                color="primary"
+                                            >
+                                            </v-progress-circular>
+                                        </div>
+                                    </v-row>
+                                </v-container>
+                            </template>
+                            <template v-slot:no-data>
+                                <v-alert v-if="!loading"
+                                    border="top"
+                                    colored-border
+                                    type="info"
+                                    elevation="2"
+                                >
+                                    Дані не знайдено
+                                </v-alert>
+                            </template>
                         </v-data-iterator>
                     </v-col>
                 </v-row>
-                <v-row>
+                <v-row v-if="pageCount > 1">
                     <v-col>
                         <v-pagination
                             v-model="page"
@@ -250,6 +287,7 @@
 <script>
 export default {
     name: "ExercisesList",
+    props: ['loadingPage'],
     data() {
         return {
             dialog: false,
@@ -277,12 +315,10 @@ export default {
         };
     },
     created() {
-        this.exercises = this.$store.state.exercises;
-        this.muscleGroupsItems = this.$store.state.muscleGroups;
-        this.sportsProjectilesItems = this.$store.state.sportsProjectiles;
-        this.musclesItems = this.$store.state.muscles;
-        this.loading = false;
-        this.$Progress.finish();
+        this.setMuscleGroups();
+        this.setSportsProjectiles();
+        this.setExercises();
+        this.setMuscles();
     },
     computed: {
         musclesFilter: function () {
@@ -305,6 +341,33 @@ export default {
         }
     },
     methods: {
+        setMuscleGroups: async function () {
+            try {
+                const { data } = await axios.get('muscle_groups');
+                this.muscleGroupsItems = data;
+            } catch (err) {}
+        },
+        setSportsProjectiles: async function () {
+            try {
+                const { data } = await axios.get('sports_projectiles');
+                this.sportsProjectilesItems = data;
+            } catch (err) {}
+        },
+        setExercises: async function () {
+            try {
+                const { data } = await axios.get('exercises');
+                this.exercises = data;
+            } catch (err) {}
+        },
+        setMuscles: async function () {
+            try {
+                const { data } = await axios.get('muscles');
+                this.musclesItems = data;
+                this.$emit('update:loadingPage', false);
+                this.$Progress.finish();
+                this.loading = false;
+            } catch (err) {}
+        },
         filterExercisesByName: function (exercises) {
             return exercises.filter(e => e.name.indexOf(this.nameExercise) !== -1);
         },

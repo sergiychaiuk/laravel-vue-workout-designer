@@ -25,6 +25,11 @@ Vue.use(VueProgressBar, {
 Vue.router = router;
 Vue.use(VueRouter);
 
+const originalPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(location) {
+    return originalPush.call(this, location).catch(err => err);
+};
+
 Vue.use(VueAxios, axios);
 axios.defaults.baseURL = `http://127.0.0.1:8000/api`;
 

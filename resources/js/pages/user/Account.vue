@@ -70,7 +70,7 @@
                                                                     color="blue"
                                                                     text
                                                                     type="info"
-                                                                >Ці значення важливі для розрахунку норм калорій і БЖУ</v-alert>
+                                                                >Ці значення важливі для розрахунку норм калорій і БЖВ</v-alert>
                                                             </v-col>
                                                         </v-row>
                                                         <v-row>
@@ -526,6 +526,7 @@ export default {
             forearm: { required, },
         },
     },
+    props: ['loadingPage'],
     data() {
         return {
             tab: null,
@@ -674,6 +675,7 @@ export default {
     },
     created() {
         this.CPFC();
+        this.$emit('update:loadingPage', false);
         this.$Progress.finish();
     },
     methods: {

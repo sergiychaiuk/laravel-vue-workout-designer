@@ -30,7 +30,7 @@
                                         <v-img
                                             contain
                                             height="200"
-                                            :src="`/images/${exercise.image}`"
+                                            :src="`/storage/exercises/${exercise.image}`"
                                         ></v-img>
                                 </v-skeleton-loader>
                             </v-col>
@@ -100,7 +100,7 @@
                                                         <v-img
                                                             contain
                                                             height="100"
-                                                            :src="`/images/${muscle.image}`"
+                                                            :src="`/storage/muscles/${muscle.image}`"
                                                         ></v-img>
                                                     </v-container>
                                                     <v-card-text class="text-center blue--text text--darken-2" style="height: 70px">{{ muscle.name }}</v-card-text>
@@ -121,6 +121,7 @@
 <script>
 export default {
     name: "Exercise",
+    props: ['loadingPage'],
     data() {
         return {
             exercise: {},
@@ -133,18 +134,25 @@ export default {
             this.loading = false;
             this.$router.push({ name: 'exercises' });
         } else {
-            axios.get(`/exercises/${Number(this.$route.params.id)}`)
-                .then(res => {
-                    this.exercise = res.data.exercise;
-                    this.muscles = res.data.muscles;
-                    this.loading = false;
-                })
-                .catch(err => {
-                    this.loading = false;
-                    this.$router.push({ name: 'exercises' });
-                });
-            this.$Progress.finish();
+            this.setExercises();
         }
+    },
+    methods: {
+        setExercises: async function () {
+            try {
+                const { data } = await axios.get(`/exercises/${Number(this.$route.params.id)}`);
+                this.exercise = data.exercise;
+                this.muscles = data.muscles;
+            }
+            catch (error) {
+                await this.$router.push({name: 'exercises'});
+            }
+            finally {
+                this.$emit('update:loadingPage', false);
+                this.$Progress.finish();
+                this.loading = false;
+            }
+        },
     },
 }
 </script>

@@ -165,7 +165,10 @@ export default {
         };
     },
 
+    props: ['loadingPage'],
+
     created() {
+        this.$emit('update:loadingPage', false);
         this.$Progress.finish();
     },
 

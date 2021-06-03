@@ -47,8 +47,10 @@
                                         </v-btn>
                                     </template>
                                     <v-card>
-                                        <v-card-title>Фільтр</v-card-title>
-                                        <v-card-text>
+                                        <v-card-title class="text-h5">
+                                            Фільтр
+                                        </v-card-title>
+                                        <v-card-text class="pb-0">
                                             <v-row
                                                 align="center"
                                             >
@@ -123,6 +125,14 @@
                                                 </v-col>
                                             </v-row>
                                         </v-card-text>
+                                        <v-card-actions>
+                                            <v-spacer></v-spacer>
+                                            <v-btn
+                                                color="primary"
+                                                text
+                                                @click="dialog = false"
+                                            >Закрити</v-btn>
+                                        </v-card-actions>
                                     </v-card>
                                 </v-dialog>
                             </v-col>
@@ -145,6 +155,7 @@
                             :sort-desc="sortDesc"
                             :items-per-page.sync="itemsPerPage"
                             :page.sync="page"
+                            :loading="loading"
                         >
                             <template v-slot:default="props">
                                 <v-row>
@@ -156,28 +167,56 @@
                                         md="4"
                                         lg="4"
                                     >
-                                        <v-card
+                                        <v-skeleton-loader :loading="loading" type="card">
+                                            <v-card
                                             hover
                                             link
                                             :to="{name: 'muscle', params: {id: item.id}}"
-                                        >
-                                            <v-container>
-                                                <v-img
-                                                    contain
-                                                    height="200"
-                                                    :src="`/images/${item.image}`"
-                                                ></v-img>
-                                            </v-container>
-                                            <v-card-title class="blue--text text--darken-2">{{ item.muscle_group.name }}</v-card-title>
-                                            <v-card-subtitle he>{{ item.name }}</v-card-subtitle>
-                                        </v-card>
+                                                >
+                                                    <v-container>
+                                                        <v-img
+                                                            contain
+                                                            height="200"
+                                                            :src="`/storage/muscles/${item.image}`"
+                                                        ></v-img>
+                                                    </v-container>
+                                                    <v-card-title class="blue--text text--darken-2">{{ item.muscle_group.name }}</v-card-title>
+                                                    <v-card-subtitle he>{{ item.name }}</v-card-subtitle>
+                                                </v-card>
+                                        </v-skeleton-loader>
                                     </v-col>
                                 </v-row>
+                            </template>
+                            <template v-slot:loading>
+                                <v-container>
+                                    <v-row
+                                        justify="center"
+                                        align="center"
+                                    >
+                                        <div class="justify-center">
+                                            <v-progress-circular
+                                                indeterminate
+                                                color="primary"
+                                            >
+                                            </v-progress-circular>
+                                        </div>
+                                    </v-row>
+                                </v-container>
+                            </template>
+                            <template v-slot:no-data>
+                                <v-alert v-if="!loading"
+                                         border="top"
+                                         colored-border
+                                         type="info"
+                                         elevation="2"
+                                >
+                                    Дані не знайдено
+                                </v-alert>
                             </template>
                         </v-data-iterator>
                     </v-col>
                 </v-row>
-                <v-row>
+                <v-row v-if="pageCount > 1">
                     <v-col>
                         <v-pagination
                             v-model="page"
@@ -194,9 +233,11 @@
 <script>
 export default {
     name: "MusclesList",
+    props: ['loadingPage'],
     data() {
         return {
             dialog: false,
+            loading: true,
 
             muscles: [],
 
@@ -216,9 +257,8 @@ export default {
         };
     },
     created() {
-        this.muscles = this.$store.state.muscles;
-        this.muscleGroupsItems = this.$store.state.muscleGroups;
-        this.$Progress.finish();
+        this.setMuscles();
+        this.setMuscleGroups();
     },
     computed: {
         musclesFilter: function () {
@@ -233,6 +273,21 @@ export default {
         }
     },
     methods: {
+        setMuscles: async function () {
+            try {
+                const {data} = await axios.get('muscles');
+                this.muscles = data;
+            } catch (err) {}
+        },
+        setMuscleGroups: async function () {
+            try {
+                const { data } = await axios.get('muscle_groups');
+                this.muscleGroupsItems = data;
+                this.$emit('update:loadingPage', false);
+                this.$Progress.finish();
+                this.loading = false;
+            } catch (err) {}
+        },
         filterMusclesByName: function (muscles) {
             return muscles.filter(m => m.name.indexOf(this.nameMuscle) !== -1);
         },

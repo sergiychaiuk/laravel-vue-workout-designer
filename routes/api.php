@@ -47,3 +47,6 @@ Route::get('/exercises/{exercise}', 'ExerciseController@show');
 
 Route::get('muscles', 'MuscleController@index');
 Route::get('/muscles/{muscle}', 'MuscleController@show');
+
+Route::get('workouts', 'WorkoutController@index');
+Route::get('/workouts/{workout}', 'WorkoutController@show');

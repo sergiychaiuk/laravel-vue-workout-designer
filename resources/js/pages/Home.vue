@@ -9,8 +9,6 @@
                 lg="6"
             >
                 <v-card
-                    :loading="false"
-                    :disabled="false"
                     elevation="5"
                 >
                     <v-card-title
@@ -28,7 +26,9 @@
 <script>
 export default {
     name: "home",
+    props: ['loadingPage'],
     created() {
+        this.$emit('update:loadingPage', false);
         this.$Progress.finish();
     },
 }

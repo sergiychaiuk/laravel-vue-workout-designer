@@ -1,6 +1,27 @@
 <template>
     <v-app app>
+        <v-container v-if="loadingPage">
+            <v-row
+                justify="center"
+                align="center"
+                style="height: 100vh"
+            >
+                <div class="justify-center">
+                    <v-progress-circular
+                        :size="70"
+                        :width="7"
+                        indeterminate
+                        color="primary"
+                    >
+                    </v-progress-circular>
+                    <div class="text-center">
+                        Загрузка
+                    </div>
+                </div>
+            </v-row>
+        </v-container>
         <v-app-bar
+            v-if="!loadingPage"
             color="primary"
             dense
             app
@@ -52,7 +73,7 @@
                             </v-list-item-icon>
                             <v-list-item-title>Реєстрація</v-list-item-title>
                         </v-list-item>
-                        <v-list-item v-if="$auth.check()"
+                        <v-list-item v-if="$auth.check(1)"
                                      :to="{name: 'account'}"
                                      link
                         >
@@ -60,6 +81,15 @@
                                 <v-icon>mdi-account-circle</v-icon>
                             </v-list-item-icon>
                             <v-list-item-title>Акаунт</v-list-item-title>
+                        </v-list-item>
+                        <v-list-item v-if="$auth.check(1)"
+                                     :to="{name: ''}"
+                                     link
+                        >
+                            <v-list-item-icon>
+                                <v-icon>mdi-account-circle</v-icon>
+                            </v-list-item-icon>
+                            <v-list-item-title>Мої тренування</v-list-item-title>
                         </v-list-item>
                         <v-list-item v-if="$auth.check()"
                                      link
@@ -75,6 +105,7 @@
             </v-menu>
         </v-app-bar>
         <v-navigation-drawer
+            v-if="!loadingPage"
             v-model="drawer"
             app
         >
@@ -104,7 +135,10 @@
                         </v-list-item-icon>
                         <v-list-item-title>Головна</v-list-item-title>
                     </v-list-item>
-                    <v-list-item link>
+                    <v-list-item
+                        :to="{name: 'workouts'}"
+                        link
+                    >
                         <v-list-item-icon>
                             <v-icon>mdi-arm-flex</v-icon>
                         </v-list-item-icon>
@@ -132,7 +166,7 @@
             </v-list>
         </v-navigation-drawer>
         <v-main>
-            <router-view></router-view>
+            <router-view :loadingPage.sync="loadingPage"></router-view>
         </v-main>
     </v-app>
 </template>
@@ -143,59 +177,23 @@ export default {
     name: "Index",
     data() {
         return {
+            loadingPage: true,
             drawer: null,
-            muscleGroups: [],
-            sportsProjectiles: [],
-            exercises: [],
-            muscles: [],
         };
     },
     beforeCreate() {
         this.$Progress.start();
     },
-    created() {
-        this.setMuscleGroups();
-        this.setSportsProjectiles();
-        this.setExercises();
-        this.setMuscles();
-    },
     computed: {
         userName: function () {
             if (this.$auth.check()) {
+                if (this.$auth.user().name === undefined) {
+                    this.$auth.logout();
+                }
                 return this.$auth.user().name + ' ' + this.$auth.user().surname;
             } else {
                 return 'Користувач';
             }
-        },
-    },
-    methods: {
-        setMuscleGroups: function () {
-            axios.get('muscle_groups')
-            .then(res => {
-                this.muscleGroups = res.data;
-                this.$store.commit('SET_MUSCLE_GROUPS', _.cloneDeep(this.muscleGroups));
-            });
-        },
-        setSportsProjectiles: function () {
-            axios.get('sports_projectiles')
-                .then(res => {
-                    this.sportsProjectiles = res.data;
-                    this.$store.commit('SET_SPORTS_PROJECTILES', _.cloneDeep(this.sportsProjectiles));
-                });
-        },
-        setExercises: function () {
-            axios.get('exercises')
-                .then(res => {
-                    this.exercises = res.data;
-                    this.$store.commit('SET_EXERCISES', _.cloneDeep(this.exercises));
-                });
-        },
-        setMuscles: function () {
-            axios.get('muscles')
-                .then(res => {
-                    this.muscles = res.data;
-                    this.$store.commit('SET_MUSCLES', _.cloneDeep(this.muscles));
-                });
         },
     },
 }
@@ -203,4 +201,7 @@ export default {
 
 <style scoped>
     a {  text-decoration: none;}
+    .v-progress-circular {
+        margin: 1rem;
+    }
 </style>

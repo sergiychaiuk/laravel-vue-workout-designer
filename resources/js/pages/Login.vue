@@ -111,7 +111,10 @@ export default {
         };
     },
 
+    props: ['loadingPage'],
+
     created() {
+        this.$emit('update:loadingPage', false);
         this.$Progress.finish();
     },
 
@@ -146,7 +149,8 @@ export default {
                     success: function () {
                         this.$Progress.finish();
                         app.loading = false;
-                        this.$router.push({name: 'account'});
+                        const redirectTo = this.$auth.user().role === 2 ? 'workouts' : 'account';
+                        this.$router.push({name: redirectTo});
                     },
                     error: function (res) {
                         this.$Progress.fail();
