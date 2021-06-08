@@ -49,6 +49,7 @@
                 </template>
 
                 <v-list
+                    v-if="!$auth.check(2)"
                     nav
                     dense
                 >
@@ -83,7 +84,7 @@
                             <v-list-item-title>Акаунт</v-list-item-title>
                         </v-list-item>
                         <v-list-item v-if="$auth.check(1)"
-                                     :to="{name: ''}"
+                                     :to="{name: 'my-workouts'}"
                                      link
                         >
                             <v-list-item-icon>
@@ -91,16 +92,23 @@
                             </v-list-item-icon>
                             <v-list-item-title>Мої тренування</v-list-item-title>
                         </v-list-item>
-                        <v-list-item v-if="$auth.check()"
-                                     link
-                                     @click.prevent="$auth.logout();"
-                        >
-                            <v-list-item-icon>
-                                <v-icon>mdi-exit-to-app</v-icon>
-                            </v-list-item-icon>
-                            <v-list-item-title>Вихід</v-list-item-title>
-                        </v-list-item>
                     </v-list-item-group>
+                </v-list>
+                <v-divider v-if="$auth.check(1)" class="ma-0"></v-divider>
+                <v-list
+                    dense
+                    v-if="$auth.check()"
+                >
+                    <v-list-item v-if="$auth.check()"
+                                 link
+                                 active-class="logout"
+                                 @click.prevent="$auth.logout();"
+                    >
+                        <v-list-item-icon>
+                            <v-icon>mdi-exit-to-app</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-title>Вихід</v-list-item-title>
+                    </v-list-item>
                 </v-list>
             </v-menu>
         </v-app-bar>

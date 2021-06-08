@@ -21,6 +21,8 @@ class ExercisesGroup extends Model
 
     public function exercises(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany('App\Models\Exercise', 'exercises_group_exercises', 'exercise_group_id', 'exercise_id')->withPivot('id', 'approaches', 'repetition', 'weight');
+        return $this->belongsToMany('App\Models\Exercise', 'exercises_group_exercises', 'exercise_group_id', 'exercise_id')
+            ->withPivot('id', 'approaches', 'repetition', 'weight', 'order_ege')
+            ->orderBy('exercises_group_exercises.order_ege');
     }
 }

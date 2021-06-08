@@ -15,12 +15,12 @@ class Workout extends Model
 
     public function exercisesGroups(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany('App\Models\ExercisesGroup');
+        return $this->hasMany('App\Models\ExercisesGroup')->orderBy('order_eg');
     }
 
-    public function users(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsToMany('App\Models\User', 'workouts_users', 'workout_id', 'user_id');
+        return $this->belongsTo('App\Models\User');
     }
 
     public function workoutStyle(): \Illuminate\Database\Eloquent\Relations\BelongsTo

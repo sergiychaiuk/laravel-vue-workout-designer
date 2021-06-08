@@ -10,6 +10,7 @@ import Exercise from "./pages/Exercise";
 import Muscle from "./pages/Muscle";
 import Workouts from "./pages/Workouts";
 import Workout from "./pages/Workout";
+import MyWorkouts from "./pages/user/Workouts";
 
 const routes = [
     {
@@ -90,6 +91,22 @@ const routes = [
         component: Workout,
         meta: {
             auth: undefined
+        },
+    },
+    {
+        path: '/my-workouts',
+        name: 'my-workouts',
+        component: MyWorkouts,
+        meta: {
+            auth: {roles: 1, redirect: {name: 'home'}}
+        },
+    },
+    {
+        path: '/my-workouts/:id',
+        name: 'my-workout',
+        component: Workout,
+        meta: {
+            auth: {roles: 1, redirect: {name: 'home'}}
         },
     },
     {

@@ -50,3 +50,18 @@ Route::get('/muscles/{muscle}', 'MuscleController@show');
 
 Route::get('workouts', 'WorkoutController@index');
 Route::get('/workouts/{workout}', 'WorkoutController@show');
+
+Route::get('/account/workouts', 'UserController@workouts');
+Route::get('/account/workouts/add/{workout}', 'UserController@addWorkout');
+
+Route::get('workout_styles', 'WorkoutStyleController@index');
+
+Route::delete('/account/workouts/{workout}', 'UserController@deleteWorkout');
+Route::post('/account/workouts', 'UserController@createWorkout');
+
+Route::put('/workouts/update_order_exercises', 'WorkoutController@updateOrderExercises');
+
+Route::post('/workouts/{exercisesGroup}/exercises', 'WorkoutController@createExercise');
+Route::delete('/workouts/{id}', 'WorkoutController@deleteExercise');
+Route::put('/workouts/exercise', 'WorkoutController@editExercise');
+Route::put('/account/workouts/{workout}', 'UserController@editWorkout');

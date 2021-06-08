@@ -51,8 +51,8 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
-    public function workouts(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function workouts(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->belongsToMany('App\Models\Workout', 'workouts_users', 'user_id', 'workout_id');
+        return $this->hasMany('App\Models\Workout');
     }
 }
