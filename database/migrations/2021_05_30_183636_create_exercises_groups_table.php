@@ -17,6 +17,7 @@ class CreateExercisesGroupsTable extends Migration
             $table->id();
             $table->string('name');
             $table->unsignedBigInteger('workout_id')->index('workout_id');
+            $table->integer('order_eg');
 
             $table->foreign('workout_id')
                 ->references('id')

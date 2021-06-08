@@ -17,10 +17,17 @@ class CreateWorkoutsTable extends Migration
             $table->id();
             $table->string('name');
             $table->unsignedBigInteger('workout_style_id')->index('workout_style_id');
+            $table->unsignedBigInteger('user_id')->index('user_id');
+            $table->boolean('is_published')->default(true);
 
             $table->foreign('workout_style_id')
                 ->references('id')
                 ->on('workout_styles')
+                ->onDelete('cascade');
+
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
                 ->onDelete('cascade');
         });
     }

@@ -20,6 +20,7 @@ class ExercisesGroupExercises extends Migration
             $table->integer('approaches');
             $table->integer('repetition');
             $table->float('weight');
+            $table->integer('order_ege');
 
             $table->foreign('exercise_group_id')
                 ->references('id')
