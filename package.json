@@ -10,6 +10,7 @@
         "production": "mix --production"
     },
     "devDependencies": {
+        "@mdi/font": "^5.9.55",
         "axios": "^0.21.1",
         "bootstrap": "^4.6.0",
         "deepmerge": "^4.2.2",
@@ -32,6 +33,7 @@
         "vue-nl2br": "^0.1.2",
         "vue-progressbar": "^0.7.5",
         "vue-router": "^3.5.1",
+        "vuedraggable": "^2.24.3",
         "vuelidate": "^0.7.6",
         "vuetify": "^2.5.0",
         "vuex": "^3.6.2"

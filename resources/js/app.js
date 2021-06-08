@@ -41,9 +41,14 @@ import Nl2br from 'vue-nl2br';
 
 Vue.component('nl2br', Nl2br);
 
+import '@mdi/font/css/materialdesignicons.css';
+
 const app = new Vue({
     el: '#app',
     router,
     vuetify,
     store,
+    icons: {
+        iconfont: 'mdi',
+    },
 });
