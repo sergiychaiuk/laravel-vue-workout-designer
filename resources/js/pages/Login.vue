@@ -42,6 +42,7 @@
                                 :error-messages="emailErrors"
                                 @input="$v.email.$touch()"
                                 @blur="$v.email.$touch()"
+                                autocomplete="off"
                             ></v-text-field>
                         </v-card-actions>
                         <v-card-actions>
@@ -56,6 +57,7 @@
                                 :error-messages="passwordErrors"
                                 @input="$v.password.$touch()"
                                 @blur="$v.password.$touch()"
+                                autocomplete="off"
                             ></v-text-field>
                         </v-card-actions>
                         <v-card-actions>

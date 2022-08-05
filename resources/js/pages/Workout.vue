@@ -77,6 +77,7 @@
                                                         :error-messages="repetitionErrors"
                                                         @input="$v.exercise.repetition.$touch()"
                                                         @blur="$v.exercise.repetition.$touch()"
+                                                        autocomplete="off"
                                                     ></v-text-field>
                                                 </v-col>
                                             </v-row>
@@ -93,6 +94,7 @@
                                                         :error-messages="approachesErrors"
                                                         @input="$v.exercise.approaches.$touch()"
                                                         @blur="$v.exercise.approaches.$touch()"
+                                                        autocomplete="off"
                                                     ></v-text-field>
                                                 </v-col>
                                             </v-row>
@@ -110,6 +112,7 @@
                                                         :error-messages="weightErrors"
                                                         @input="$v.exercise.weight.$touch()"
                                                         @blur="$v.exercise.weight.$touch()"
+                                                        autocomplete="off"
                                                     ></v-text-field>
                                                 </v-col>
                                             </v-row>
@@ -186,6 +189,7 @@
                                                 :error-messages="nameWorkoutErrors"
                                                 @input="$v.workoutEdit.name.$touch()"
                                                 @blur="$v.workoutEdit.name.$touch()"
+                                                autocomplete="off"
                                             ></v-text-field>
                                         </v-col>
                                     </v-row>
@@ -203,6 +207,7 @@
                                                 :error-messages="styleWorkoutErrors"
                                                 @input="$v.workoutEdit.workout_style_id.$touch()"
                                                 @blur="$v.workoutEdit.workout_style_id.$touch()"
+                                                autocomplete="off"
                                             ></v-select>
                                         </v-col>
                                     </v-row>
@@ -222,6 +227,7 @@
                                                 :error-messages="publishErrors"
                                                 @input="$v.workoutEdit.is_published.$touch()"
                                                 @blur="$v.workoutEdit.is_published.$touch()"
+                                                autocomplete="off"
                                             ></v-select>
                                         </v-col>
                                     </v-row>
@@ -290,6 +296,7 @@
                                                                     elevation="0"
                                                                     hide-details="auto"
                                                                     :rules="[v => !!v]"
+                                                                    autocomplete="off"
                                                                 ></v-text-field>
                                                                 <v-btn
                                                                     class="my-handle"
@@ -409,6 +416,7 @@
                                                         :error-messages="editRepetitionErrors"
                                                         @input="$v.exercisesEdit.item.pivot.repetition.$touch()"
                                                         @blur="$v.exercisesEdit.item.pivot.repetition.$touch()"
+                                                        autocomplete="off"
                                                     ></v-text-field>
                                                 </v-col>
                                             </v-row>
@@ -425,6 +433,7 @@
                                                         :error-messages="editApproachesErrors"
                                                         @input="$v.exercisesEdit.item.pivot.approaches.$touch()"
                                                         @blur="$v.exercisesEdit.item.pivot.approaches.$touch()"
+                                                        autocomplete="off"
                                                     ></v-text-field>
                                                 </v-col>
                                             </v-row>
@@ -442,6 +451,7 @@
                                                         :error-messages="editWeightErrors"
                                                         @input="$v.exercisesEdit.item.pivot.weight.$touch()"
                                                         @blur="$v.exercisesEdit.item.pivot.weight.$touch()"
+                                                        autocomplete="off"
                                                     ></v-text-field>
                                                 </v-col>
                                             </v-row>

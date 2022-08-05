@@ -24,6 +24,7 @@
                                     prepend-inner-icon="mdi-magnify"
                                     hide-details="auto"
                                     v-model="nameWorkout"
+                                    autocomplete="off"
                                 ></v-text-field>
                             </v-col>
                             <v-col
@@ -47,70 +48,78 @@
                                         </v-btn>
                                     </template>
                                     <v-card>
-                                        <v-card-title class="text-h5">
+                                        <v-card-title class="title text-h5">
                                             Фільтр
                                         </v-card-title>
-                                        <v-card-text class="pb-0">
-                                            <v-row
-                                                align="center"
-                                            >
-                                                <v-col
-                                                    cols="12"
-                                                    sm="12"
-                                                    md="8"
-                                                    lg="8"
+                                        <v-card-text class="pb-0 px-2">
+                                            <v-container>
+                                                <v-row
+                                                    align="center"
                                                 >
-                                                    <v-select
-                                                        label="Сортувати за"
-                                                        outlined
-                                                        dense
-                                                        hide-details="auto"
-                                                        v-model="sortBy"
-                                                        :items="sortByItems"
-                                                        item-text="name"
-                                                        item-value="value"
-                                                    ></v-select>
-                                                </v-col>
-                                                <v-col
-                                                    cols="12"
-                                                    sm="12"
-                                                    md="4"
-                                                    lg="4"
-                                                    class="text-center"
-                                                >
-                                                    <v-btn-toggle
-                                                        v-model="sortDesc"
-                                                        dense
-                                                        color="primary"
+                                                    <v-col
+                                                        class="pb-0"
+                                                        cols="7"
+                                                        sm="8"
+                                                        md="9"
+                                                        lg="9"
                                                     >
-                                                        <v-btn
-                                                            :value="false"
-                                                        >
-                                                            <v-icon>mdi-arrow-up</v-icon>
-                                                        </v-btn>
-                                                        <v-btn
-                                                            :value="true"
-                                                        >
-                                                            <v-icon>mdi-arrow-down</v-icon>
-                                                        </v-btn>
-                                                    </v-btn-toggle>
-                                                </v-col>
-                                            </v-row>
-                                            <v-row>
-                                                <v-col>
-                                                    <v-select
-                                                        label="Стиль"
-                                                        outlined
-                                                        dense
-                                                        hide-details="auto"
-                                                        :items="workoutStyleItems"
-                                                        item-text="name"
-                                                        item-value="id"
-                                                        v-model="workoutStyles"
+                                                        <v-select
+                                                            label="Сортувати за"
+                                                            outlined
+                                                            dense
+                                                            hide-details="auto"
+                                                            v-model="sortBy"
+                                                            :items="sortByItems"
+                                                            item-text="name"
+                                                            item-value="value"
+                                                            autocomplete="off"
+                                                        ></v-select>
+                                                    </v-col>
+                                                    <v-col
+                                                        cols="5"
+                                                        sm="4"
+                                                        md="3"
+                                                        lg="3"
+                                                        class="text-center pb-0"
                                                     >
-                                                    </v-select>
-                                                </v-col>
-                                            </v-row>
+                                                        <v-btn-toggle
+                                                            v-model="sortDesc"
+                                                            dense
+                                                            color="primary"
+                                                            rounded
+                                                        >
+                                                            <v-btn
+                                                                :value="false"
+                                                                x-small
+                                                            >
+                                                                <v-icon small>mdi-arrow-up</v-icon>
+                                                            </v-btn>
+                                                            <v-btn
+                                                                :value="true"
+                                                                x-small
+                                                            >
+                                                                <v-icon small>mdi-arrow-down</v-icon>
+                                                            </v-btn>
+                                                        </v-btn-toggle>
+                                                    </v-col>
+                                                </v-row>
+                                                <v-row>
+                                                    <v-col class="pb-0">
+                                                        <v-select
+                                                            label="Стиль"
+                                                            outlined
+                                                            dense
+                                                            hide-details="auto"
+                                                            :items="workoutStyleItems"
+                                                            item-text="name"
+                                                            item-value="id"
+                                                            v-model="workoutStyles"
+                                                            autocomplete="off"
+                                                        >
+                                                        </v-select>
+                                                    </v-col>
+                                                </v-row>
+                                            </v-container>
                                         </v-card-text>
                                         <v-card-actions>
                                             <v-spacer></v-spacer>
@@ -173,6 +182,7 @@
                                                     :error-messages="nameErrors"
                                                     @input="$v.createWorkout.name.$touch()"
                                                     @blur="$v.createWorkout.name.$touch()"
+                                                    autocomplete="off"
                                                 ></v-text-field>
                                             </v-col>
                                         </v-row>
@@ -190,6 +200,7 @@
                                                     :error-messages="styleErrors"
                                                     @input="$v.createWorkout.workout_style_id.$touch()"
                                                     @blur="$v.createWorkout.workout_style_id.$touch()"
+                                                    autocomplete="off"
                                                 ></v-select>
                                             </v-col>
                                         </v-row>
@@ -258,6 +269,7 @@
                                                                         elevation="0"
                                                                         hide-details="auto"
                                                                         :rules="[v => !!v]"
+                                                                        autocomplete="off"
                                                                     ></v-text-field>
                                                                     <v-btn
                                                                         class="my-handle"
@@ -617,7 +629,7 @@ export default {
             finally {
                 this.$emit('update:loadingPage', false);
                 this.$Progress.finish();
-                this.loading = false;
+                setTimeout(() => this.loading = false, 1000);
             }
         },
         workoutsFilterByName: function (workouts) {

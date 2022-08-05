@@ -43,6 +43,7 @@
                                 :error-messages="emailErrors"
                                 @input="$v.email.$touch()"
                                 @blur="$v.email.$touch()"
+                                autocomplete="off"
                             ></v-text-field>
                         </v-card-actions>
                         <v-card-actions>
@@ -55,6 +56,7 @@
                                 :error-messages="nameErrors"
                                 @input="$v.name.$touch()"
                                 @blur="$v.name.$touch()"
+                                autocomplete="off"
                             ></v-text-field>
                         </v-card-actions>
                         <v-card-actions>
@@ -67,6 +69,7 @@
                                 :error-messages="surnameErrors"
                                 @input="$v.surname.$touch()"
                                 @blur="$v.surname.$touch()"
+                                autocomplete="off"
                             ></v-text-field>
                         </v-card-actions>
                         <v-card-actions>
@@ -81,6 +84,7 @@
                                 :error-messages="passwordErrors"
                                 @input="$v.password.$touch()"
                                 @blur="$v.password.$touch()"
+                                autocomplete="off"
                             ></v-text-field>
                         </v-card-actions>
                         <v-card-actions>
@@ -95,6 +99,7 @@
                                 :error-messages="passwordConfirmationErrors"
                                 @input="$v.password_confirmation.$touch()"
                                 @blur="$v.password_confirmation.$touch()"
+                                autocomplete="off"
                             ></v-text-field>
                         </v-card-actions>
                         <v-card-actions>
