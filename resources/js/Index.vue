@@ -6,16 +6,14 @@
                 align="center"
                 style="height: 100vh"
             >
-                <div class="justify-center">
-                    <v-progress-circular
-                        :size="70"
-                        :width="7"
-                        indeterminate
-                        color="primary"
-                    >
-                    </v-progress-circular>
-                    <div class="text-center">
-                        Загрузка
+                <div>
+                    <v-img src="/images/bf_gray.png" height="60" contain></v-img>
+                    <div class="d-flex justify-center">
+                        <v-progress-circular
+                            indeterminate
+                            color="primary"
+                        >
+                        </v-progress-circular>
                     </div>
                 </div>
             </v-row>
@@ -88,7 +86,7 @@
                                      link
                         >
                             <v-list-item-icon>
-                                <v-icon>mdi-account-circle</v-icon>
+                                <v-icon>mdi-weight-lifter</v-icon>
                             </v-list-item-icon>
                             <v-list-item-title>Мої тренування</v-list-item-title>
                         </v-list-item>
@@ -121,9 +119,14 @@
                 dense
             >
                 <v-list-item>
-                    <div class="text-h4 font-weight-bold blue--text text--darken-2">
-                        FreeBody
-                    </div>
+                    <v-list-item-avatar size="60" tile>
+                        <v-img src="/images/bf_gray.png" contain></v-img>
+                    </v-list-item-avatar>
+                    <v-list-item-content>
+                        <div class="text-h4 font-weight-bold blue--text text--darken-2">
+                            FreeBody
+                        </div>
+                    </v-list-item-content>
                 </v-list-item>
             </v-list>
 
@@ -148,7 +151,7 @@
                         link
                     >
                         <v-list-item-icon>
-                            <v-icon>mdi-arm-flex</v-icon>
+                            <v-icon>mdi-weight-lifter</v-icon>
                         </v-list-item-icon>
                         <v-list-item-title>Тренування</v-list-item-title>
                     </v-list-item>
@@ -157,7 +160,7 @@
                         link
                     >
                         <v-list-item-icon>
-                            <v-icon>mdi-kettlebell</v-icon>
+                            <v-icon>mdi-dumbbell</v-icon>
                         </v-list-item-icon>
                         <v-list-item-title>Вправи</v-list-item-title>
                     </v-list-item>
@@ -166,7 +169,7 @@
                         link
                     >
                         <v-list-item-icon>
-                            <v-icon>mdi-kettlebell</v-icon>
+                            <v-icon>mdi-arm-flex</v-icon>
                         </v-list-item-icon>
                         <v-list-item-title>М`язи</v-list-item-title>
                     </v-list-item>
