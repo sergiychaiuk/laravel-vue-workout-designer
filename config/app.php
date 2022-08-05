@@ -135,6 +135,7 @@ return [
     */
 
     'providers' => [
+        Spatie\Backup\BackupServiceProvider::class,
 
         /*
          * Laravel Framework Service Providers...
