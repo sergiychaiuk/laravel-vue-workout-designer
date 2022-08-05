@@ -44,9 +44,13 @@ Route::get('sports_projectiles', 'SportsProjectileController@index');
 
 Route::get('exercises', 'ExerciseController@index');
 Route::get('/exercises/{exercise}', 'ExerciseController@show');
+Route::post('/exercises', 'ExerciseController@store');
+Route::post('/exercises/{exercise}', 'ExerciseController@update');
 
 Route::get('muscles', 'MuscleController@index');
 Route::get('/muscles/{muscle}', 'MuscleController@show');
+Route::post('/muscles', 'MuscleController@store');
+Route::post('/muscles/{muscle}', 'MuscleController@update');
 
 Route::get('workouts', 'WorkoutController@index');
 Route::get('/workouts/{workout}', 'WorkoutController@show');

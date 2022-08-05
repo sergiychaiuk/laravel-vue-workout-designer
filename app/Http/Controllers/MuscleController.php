@@ -19,4 +19,43 @@ class MuscleController extends Controller
         $response['exercises'] = $muscle->exercises;
         return response()->json($response, 200);
     }
+
+    public function store(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $img = $request->file('image')->store('public/muscles');
+
+        $muscle = Muscle::create([
+            'name' => $request->name,
+            'muscle_group_id' => $request->muscle_group_id,
+            'image' => str_replace('public/muscles', '', $img),
+            'description' => $request->description,
+            'functions' => $request->functions,
+        ]);
+
+        $muscle->exercises()->sync(explode(',', $request->exercises));
+
+        return response()->json([$muscle, $muscle->exercises], 201);
+    }
+
+    public function update(Muscle $muscle, Request $request): \Illuminate\Http\JsonResponse
+    {
+        if ($request->file('image')) {
+            $img = $request->file('image')->store('public/muscles');
+            $img = str_replace('public/muscles', '', $img);
+        } else {
+            $img = $muscle->image;
+        }
+
+        $muscle->update([
+            'name' => $request->name,
+            'muscle_group_id' => $request->muscle_group_id,
+            'image' => $img,
+            'description' => $request->description,
+            'functions' => $request->functions,
+        ]);
+
+        $muscle->exercises()->sync(explode(',', $request->exercises));
+
+        return response()->json('success', 200);
+    }
 }
